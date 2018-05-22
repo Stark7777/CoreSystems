@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html ng-app='myApp'>
+<head>
+    <title></title>
+    <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    
+  
+</head>
+<body ng-app='myApp' ng-controller="testController">
+   
+    <!--<input type="text" ng-model="post_id" placeholder="inserte el id de Factura" />-->
+
+
+    <br />
+    <br />
+    <section class="container  container-fluid">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="box-title">
+                    <b style="color:white">Lista de Facturas</b>
+                </h3>
+                <input type="submit" class="btn btn-success glyphicon-ban-circle" title="Imprimir" value="Todos las Facturas" ng-click="getAllPosts()" />
+                <!--<input type="submit" value="Detalle Factura" ng-click="getPost()" />-->
+            </div>
+            <!-- /.box-header -->
+            <div class="panel-body">
+                <table id="example" class="table table-striped" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Consecutivo</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Realizó Pago:</th>
+                            <th>Pago</th>
+                            <th>Descuento%</th>
+                            <th>Estado</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  ng-repeat="p in posts" >
+                            <td >                           
+                                {{p.Id}}
+                                <!--<button type="button" ng-click="getPost(p.Id)">Enviar</button>-->
+                            </td>
+                         <td>
+                              {{p.Consecutivo}}
+                         </td>
+                           <td>
+                               {{p.Fecha}}
+                           </td>
+                            <td>
+                                {{p.Cliente}}
+                            </td>
+                            <td>
+                                {{p.RealizoPago}}
+                            </td>
+                            <td ng-switch on="p.Pago">
+                                <span class="badge" style="background-color:red" ng-switch-when="Credito">No Pagada</span>
+                                {{p.Pago}}
+                            </td>
+                            <td>
+                                {{p.Descuento}}
+                            </td>
+                            <td   ng-switch on="p.Estado" >
+                                <span class="badge" style="background-color:green" ng-switch-when="true">Activa</span>
+                                <span class="badge" style="background-color:red" ng-switch-when="false">Anulada</span>
+                              
+                            </td>
+                            <td>
+
+                                <button type="button"  class="btn btn-info glyphicon glyphicon-pencil" title="Detalle Factura" ng-click="getPost(p.Id)"></button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                    </table>
+                </div>
+                     
+            </div>
+        <!--Detalle de Factura-->
+        <div class="panel-body">
+            <h4>Detalles de Factura</h4>
+            <table id="" class="table table-striped" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <td>SubTotal</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="d in unPost">
+                        <td>{{d.Producto}}</td>
+                        <td>{{d.Cantidad}}</td>
+                        <td>{{d.Precio}}</td>
+                        <td>{{d.SubTotal}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        </section>
+
+
+
+                     <script src="../../Scripts/jquery-1.9.0.min.js"></script>
+                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.1/angular.min.js"></script>
+                    <!--Controllers-->
+                    <script type="text/javascript" src="testController.js"></script>
+                    <!--Services-->
+                    <script type="text/javascript" src="testService.js"></script>
+                    <!--Datatables-->
+                    <script src="../../Scripts/DataTables/jquery.dataTables.js"></script>
+                  <script>
+
+                   $(document).ready(function () {
+                    $('#example').DataTable({
+                "scrollCollapse": true,
+                "paging": true,
+                "dom": '<"top some"f>rt<"bottom"lip><"clear">',
+                "language":
+                    {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                    }
+                    });
+                   });
+
+    </script>
+
+                      
+</body>
+</html>
